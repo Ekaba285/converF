@@ -722,8 +722,8 @@ void proxyToClash(std::vector<Proxy> &nodes, YAML::Node &yamlnode, const ProxyGr
         // UDP is not supported yet in clash using snell
         // sees in https://dreamacro.github.io/clash/configuration/outbound.html#snell
         // Output UDP field when explicitly provided (true or false)
-        if(!x.UDP.is_undef() && x.Type != ProxyType::Snell)
-            singleproxy["udp"] = x.UDP.get();
+        if(!udp.is_undef() && x.Type != ProxyType::Snell)
+            singleproxy["udp"] = udp.get(); // 用合并后的 udp（含全局 udp=true），否则 vless 链接节点不会带 udp:，导致无 UDP/xudp
         if(!tfo.is_undef())
             singleproxy["tfo"] = tfo.get();
         if(proxy_block)
