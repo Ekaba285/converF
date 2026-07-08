@@ -620,6 +620,8 @@ void proxyToClash(std::vector<Proxy> &nodes, YAML::Node &yamlnode, const ProxyGr
             // Output packet-encoding, xudp, packet-addr only if explicitly set
             if (!x.PacketEncoding.empty())
                 singleproxy["packet-encoding"] = x.PacketEncoding;
+            else
+                singleproxy["packet-encoding"] = "xudp"; // 默认 XUDP：OpenClash 等核不会自动用 xudp，需显式写出
             if (!x.XUDP.is_undef())
                 singleproxy["xudp"] = x.XUDP.get();
             if (!x.PacketAddr.is_undef())
