@@ -624,6 +624,8 @@ void proxyToClash(std::vector<Proxy> &nodes, YAML::Node &yamlnode, const ProxyGr
                 singleproxy["packet-encoding"] = "xudp"; // 默认 XUDP：OpenClash 等核不会自动用 xudp，需显式写出
             if (!x.XUDP.is_undef())
                 singleproxy["xudp"] = x.XUDP.get();
+            else
+                singleproxy["xudp"] = true; // 兼容 OpenClash 面板/旧核：显式 xudp: true（现代核在有 packet-encoding 时会忽略此项）
             if (!x.PacketAddr.is_undef())
                 singleproxy["packet-addr"] = x.PacketAddr.get();
             if (!x.UUID.empty())
