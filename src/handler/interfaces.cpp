@@ -781,6 +781,9 @@ std::string subconverter(RESPONSE_CALLBACK_ARGS)
             output_content = proxyToClash(nodes, base_content, lRulesetContent, lCustomProxyGroups, argTarget == "clashr", ext);
         }
 
+        // 强制 REALITY short-id 为单引号字符串，避免 0e69 之类被 YAML 当浮点（clash-verge/OpenClash 都认）
+        output_content = regReplace(output_content, R"(short-id:([ \t]*)([0-9A-Fa-f]+))", "short-id:$1'$2'");
+
         if(argUpload)
             uploadGist(argTarget, argUploadPath, output_content, false);
         break;

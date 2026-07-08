@@ -7,7 +7,7 @@ on:
 
 jobs:
   docker:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-24.04-arm      # 原生 arm64，从源码编译
     permissions:
       contents: read
       packages: write
@@ -27,7 +27,8 @@ jobs:
 
       - uses: docker/build-push-action@v6
         with:
-          context: .
+          context: scripts/
           platforms: linux/arm64
+          build-args: SHA=fork
           push: true
           tags: ghcr.io/${{ steps.vars.outputs.owner }}/subconverter:latest
